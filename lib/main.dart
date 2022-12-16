@@ -33,6 +33,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int tabIndex = 0;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   PersistentBottomSheetController? _controller;
+  void _onItemTapped(int index) {
+    setState(() {
+      tabIndex = index;
+      print(tabIndex);
+    });
+  }
 
   void toggleBottomSheet() {
     if (_controller == null) {
@@ -198,6 +204,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: BottomNavigationBar(
+          currentIndex: tabIndex,
+          onTap: _onItemTapped,
           backgroundColor: Colors.deepPurple,
           selectedItemColor: Colors.tealAccent[100],
           unselectedItemColor: Colors.white,
