@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:material_basics/module_6/m_6_task_1.dart' as m6t4;
+import 'package:material_basics/module_7/album.dart';
+import 'package:material_basics/module_7/artists.dart';
+import 'package:material_basics/module_7/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,20 +16,78 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        inputDecorationTheme: InputDecorationTheme(
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 2, color: Colors.purple),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(width: 2, color: Colors.purple),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          iconColor: Colors.purple,
-        ),
       ),
-      home: const m6t4.MyHomePage(),
+      onGenerateRoute: ((settings) {
+        switch (settings.name) {
+          case MyHomePage.routeName:
+            return PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  const MyHomePage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.decelerate;
+
+                var tween = Tween(begin: begin, end: end).chain(CurveTween(
+                  curve: curve,
+                ));
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            );
+          case AlbumsPage.routeName:
+            return PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  const AlbumsPage(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.decelerate;
+
+                var tween = Tween(begin: begin, end: end).chain(CurveTween(
+                  curve: curve,
+                ));
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            );
+          case ArtistPage.routeName:
+            final args = settings.arguments as Map<String, dynamic>;
+            return PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  ArtistPage(
+                name: args['name'],
+                about: args['about'],
+              ),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.5);
+                const end = Offset.zero;
+                const curve = Curves.decelerate;
+
+                var tween = Tween(begin: begin, end: end).chain(CurveTween(
+                  curve: curve,
+                ));
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            );
+          default:
+            print('');
+        }
+      }),
+      home: const MyHomePage(),
     );
   }
 }
