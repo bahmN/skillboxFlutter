@@ -1,0 +1,5 @@
+//Данные пользователей
+//https://run.mocky.io/v3/af5ffb01-5cc0-4b87-95b5-47b0fcce1c96
+
+//500
+//https://run.mocky.io/v3/e4e4904b-7ca8-4893-9caa-d5ea304f0f51
