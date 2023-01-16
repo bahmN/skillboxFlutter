@@ -62,55 +62,61 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
               children: [
-                ...?hotels
-                    ?.map(
-                      (data) => Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.asset(
-                                'assets/images/hotels/${data.poster}',
+                Expanded(
+                  child: ListView(
+                    children: [
+                      ...?hotels
+                          ?.map(
+                            (data) => Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              color: const Color.fromARGB(255, 246, 245, 255),
+                              child: Column(
                                 children: [
-                                  Text(data.name),
-                                  TextButton(
-                                    onPressed: () => null,
-                                    child: const Text('Подробнее'),
-                                    style: TextButton.styleFrom(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 39, 35, 35),
-                                      foregroundColor: Colors.white,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.asset(
+                                      'assets/images/hotels/${data.poster}',
                                     ),
-                                  )
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(data.name),
+                                        TextButton(
+                                          onPressed: () => null,
+                                          style: TextButton.styleFrom(
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 39, 35, 35),
+                                            foregroundColor: Colors.white,
+                                          ),
+                                          child: const Text('Подробнее'),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList()
+                          )
+                          .toList()
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
