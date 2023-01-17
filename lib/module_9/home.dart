@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:material_basics/module_9/details.dart';
 import 'package:material_basics/module_9/models/hotel.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
-
+  static const routeName = '/home';
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -13,7 +14,7 @@ class _HomeViewState extends State<HomeView> {
   bool isLoading = false;
   List<HotelPreview>? hotels;
   Dio _dio = Dio();
-
+  
   @override
   void initState() {
     super.initState();
@@ -35,6 +36,8 @@ class _HomeViewState extends State<HomeView> {
         isLoading = false;
       });
     } on DioError catch (e) {
+      print(e.error);
+
       setState(() {
         isLoading = false;
       });
@@ -50,14 +53,15 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text('Лучшие отели мира'),
         actions: [
+          //TODO: Сделать "Список" и "Плитку"
           IconButton(
             onPressed: () => null,
-            icon: Icon(Icons.list_sharp),
+            icon: const Icon(Icons.list_sharp),
             color: Colors.white,
           ),
           IconButton(
             onPressed: () => null,
-            icon: Icon(Icons.apps_sharp),
+            icon: const Icon(Icons.apps_sharp),
             color: Colors.white,
           ),
         ],
@@ -80,10 +84,13 @@ class _HomeViewState extends State<HomeView> {
                               color: const Color.fromARGB(255, 246, 245, 255),
                               child: Column(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.asset(
-                                      'assets/images/hotels/${data.poster}',
+                                  AspectRatio(
+                                    aspectRatio: 16 / 9,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                          'assets/images/hotels/${data.poster}',
+                                          fit: BoxFit.cover),
                                     ),
                                   ),
                                   Padding(
@@ -95,7 +102,11 @@ class _HomeViewState extends State<HomeView> {
                                       children: [
                                         Text(data.name),
                                         TextButton(
-                                          onPressed: () => null,
+                                          onPressed: () => Navigator.of(context)
+                                              .pushNamed('/details',
+                                                  arguments: {
+                                                'uuid': data.uuid,
+                                              }),
                                           style: TextButton.styleFrom(
                                             backgroundColor:
                                                 const Color.fromARGB(

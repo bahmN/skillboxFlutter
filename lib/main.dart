@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_basics/module_9/details.dart';
 import 'package:material_basics/module_9/home.dart';
 
 void main() {
@@ -16,10 +17,26 @@ class MyApp extends StatelessWidget {
           primary: const Color.fromARGB(255, 39, 35, 35),
         ),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (BuildContext context) => const HomeView(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case HomeView.routeName:
+            return PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  const HomeView(),
+            );
+
+          case Details.routeName:
+            final args = settings.arguments as Map<String, dynamic>;
+            return PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) => Details(
+                uuid: args['uuid'],
+              ),
+            );
+          default:
+            print('Nothing...');
+        }
       },
+      home: const HomeView(),
     );
   }
 }
