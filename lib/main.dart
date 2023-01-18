@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(255, 39, 35, 35),
+          secondary: const Color.fromARGB(255, 39, 35, 35),
         ),
       ),
       onGenerateRoute: (settings) {

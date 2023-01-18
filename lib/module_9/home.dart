@@ -171,7 +171,7 @@ class _HomeViewState extends State<HomeView> {
                                           onPressed: () => Navigator.of(context)
                                               .pushNamed('/details',
                                                   arguments: {
-                                                'uuid': data.uuid,
+                                                'uuid': data.uuid
                                               }),
                                           style: TextButton.styleFrom(
                                             backgroundColor:
